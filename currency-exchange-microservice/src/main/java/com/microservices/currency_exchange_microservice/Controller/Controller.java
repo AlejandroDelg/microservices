@@ -25,6 +25,9 @@ public class Controller {
         if (currency == null){
             throw new RuntimeException("Unable to find data from " + from + " to " + to);
         }
+        if(currency.getConversion() == null){
+            currency.setConversion(1f);
+        }
         currency.setEnvironment(environment.getProperty("server.port"));
 
 

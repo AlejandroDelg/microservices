@@ -22,7 +22,7 @@ public class CurrencyConversionController {
         HashMap<String, String> uriVariables = new HashMap<>();
         uriVariables.put("from", from);
         uriVariables.put("to", to);
-        ResponseEntity<CurrencyConversion> responseEntity = new RestTemplate().getForEntity("http://localhost:8000/currency-exchange/from/eur/to/usd", CurrencyConversion.class, uriVariables);
+        ResponseEntity<CurrencyConversion> responseEntity = new RestTemplate().getForEntity("http://localhost:8000/currency-exchange/from/" + from+ "/to/" + to, CurrencyConversion.class, uriVariables);
         CurrencyConversion currencyConversion = responseEntity.getBody();
         return new CurrencyConversion(currencyConversion.getId(), from, to, currencyConversion.getQuantity(), currencyConversion.getConversionMultiple(), currencyConversion.getConversionMultiple(), currencyConversion.getEnvironment());
     }
@@ -32,7 +32,8 @@ public class CurrencyConversionController {
     public CurrencyConversion retrieveQuantityFeign(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity){
 
         CurrencyConversion currencyConversion = proxy.retrieveValue(from, to);
-        return new CurrencyConversion(currencyConversion.getId(), from, to, currencyConversion.getQuantity(), currencyConversion.getConversionMultiple(), currencyConversion.getConversionMultiple(), currencyConversion.getEnvironment());
+        CurrencyConversion returnValue = new CurrencyConversion(currencyConversion.getId(), from, to, quantity, currencyConversion.getConversionMultiple(), quantity, currencyConversion.getEnvironment() + " " + "feign");
+        return returnValue;
     }
 
 }

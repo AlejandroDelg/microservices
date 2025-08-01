@@ -15,6 +15,7 @@
         <module>currency-exchange-microservice</module>
         <module>limits-service</module>
         <module>naming-server</module>
+        <module>api-gateway</module>
         <module>spring-cloud-config-server</module>
     </modules>
 
